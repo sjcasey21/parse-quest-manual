@@ -9,12 +9,13 @@ def map_key(key: str) -> str:
 
 
 def str_to_int(value: str) -> int:
-    digits = ''.join(c for c in value if c.isdigit())
+    digits = ''.join(c for c in value if c.isdigit() or c == '-')
     return int(digits) if len(digits) else 0
 
 
 def dice_to_list(dice):
-    return dice.strip().split() if dice.strip() != NULL_VALUE else []
+    values = re.findall(r'[-+]?\d+d\d+|\d+', dice)
+    return values if dice.strip() != NULL_VALUE else []
 
 
 def parse_traits(traits):
@@ -40,7 +41,14 @@ def map_value(key: str, value: str) -> Union[int, str]:
         'large mag': lambda: str_to_int(value),
         'rad': lambda: str_to_int(value),
         'str': lambda: str_to_int(value),
-        # 'dmg': lambda: str_to_dice_list(value)
+        'traits': lambda: parse_traits(value),
+        'dmg': lambda: dice_to_list(value),
+        'effect': lambda: parse_traits(value),
+        'value modifier': lambda: str_to_int(value),
+        'duration': lambda: str_to_int(value),
+        'addiction save dc': lambda: str_to_int(value),
+        'hp': lambda: dice_to_list(value),
+        'rad': lambda: str_to_int(value)
     }
 
     return switcher.get(key, value.lower)()

@@ -12,12 +12,15 @@ def test_str_to_int():
     assert utils.str_to_int('a20a') == 20
     assert utils.str_to_int('aa') == 0
     assert utils.str_to_int('') == 0
+    assert utils.str_to_int('-20') == -20
+    assert utils.str_to_int('——') == 0
 
 
 def test_dice_to_list():
     assert utils.dice_to_list('  4 -1d20   ') == ['4', '-1d20']
     assert utils.dice_to_list('4 +1d4') == ['4', '+1d4']
     assert utils.dice_to_list('——') == []
+    assert utils.dice_to_list('10 DMG') == ['10']
 
 
 def test_parse_traits():
@@ -40,21 +43,85 @@ def test_parse_traits():
 
 
 def test_parse_row() -> None:
-    test = {
-        "name": "deathclaw gauntlet",
-        "dmg": "4 +1d4",
-        "acc": "+0",
-        "str": "6 str",
-        "value": "15",
-        "weight": "5",
-        "traits": "ignores dt"
+    test_armor = {
+        'Name': 'All-nighter nightwear',
+        'DT': '0 DT',
+        'Value': '2 caps',
+        'Weight': '1 lbs.',
+        'Traits': '+1 END, +1 CHA',
     }
-    assert utils.parse_row(test) == {
-        'name': 'deathclaw gauntlet',
-        'dmg': '4 +1d4',
-        'acc': 0,
-        'str': 6,
-        'value': 15,
-        'weight': 5,
-        'traits': 'ignores dt'
+    assert utils.parse_row(test_armor) == {
+        'name': 'all-nighter nightwear',
+        'dt': 0,
+        'value': 2,
+        'weight': 1,
+        'traits': ['+1 end', '+1 cha']
+    }
+
+    test_melee_weapon = {
+        'DMG': '10 +1d8',
+        'ACC': '-1',
+        'STR': '12 STR',
+        'DEF': '+1'
+    }
+
+    assert utils.parse_row(test_melee_weapon) == {
+        'dmg': ['10', '+1d8'],
+        'acc': -1,
+        'str': 12,
+        'def': 1
+    }
+
+    test_ranged_weapon = {
+        'MAG': '1 shots',
+        'Ammo': 'Darts',
+    }
+
+    assert utils.parse_row(test_ranged_weapon) == {
+        'mag': 1,
+        'ammo': 'darts',
+    }
+
+    test_accessories = {
+        'Area': 'Full body',
+        'Available Weapons': 'Two-handed weapons',
+        'DMG': '10 DMG'
+    }
+
+    assert utils.parse_row(test_accessories) == {
+        'area': 'full body',
+        'available weapons': 'two-handed weapons',
+        'dmg': ['10']
+    }
+
+    test_ammunition = {
+        'Small Mag': '1 cap',
+        'Medium Mag': '4 caps',
+        'Large Mag': '50 caps',
+        'Weapon Type': 'Ballistic',
+        'Value Modifier': '+2 caps',
+        'Effect': 'Gain +1d4 on your attack roll'
+    }
+
+    assert utils.parse_row(test_ammunition) == {
+        'small mag': 1,
+        'medium mag': 4,
+        'large mag': 50,
+        'weapon type': 'ballistic',
+        'value modifier': 2,
+        'effect': ['gain +1d4 on your attack roll']
+    }
+
+    test_medical = {
+        'Duration': '4 rounds',
+        'Addiction Save DC': 'DC 4',
+        'HP': '+1d4 HP',
+        'RAD': '+1 RAD'
+    }
+
+    assert utils.parse_row(test_medical) == {
+        'duration': 4,
+        'addiction save dc': 4,
+        'hp': ['+1d4'],
+        'rad': 1
     }
