@@ -1,7 +1,9 @@
+import re
 from typing import Union, Dict
 
+NULL_VALUE = '——'
 
-# dice regex: (\+|\-)?(\d+d\d+)|\d+
+
 def map_key(key: str) -> str:
     return key.lower()
 
@@ -11,9 +13,17 @@ def str_to_int(value: str) -> int:
     return int(digits) if len(digits) else 0
 
 
-# def str_to_dice_list(value):
-#     #     return value
-#     return re.compile(r'\b[+-]?(\d+d\d+)|\b\d+$').findall(value)
+def dice_to_list(dice):
+    return dice.strip().split() if dice.strip() != NULL_VALUE else []
+
+
+def parse_traits(traits):
+    traits = traits.strip()
+    if traits in [NULL_VALUE, '']:
+        return []
+
+    trait_list = re.split(',|\.', traits)
+    return [trait.strip().lower() for trait in trait_list if len(trait)]
 
 
 def map_value(key: str, value: str) -> Union[int, str]:
