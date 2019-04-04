@@ -22,7 +22,7 @@ install:
 script:
   - tox
   - coverage run --source parse_quest_manual -m py.test
-  - coverage report -m
+  - coverage report -m --fail-under=90
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
