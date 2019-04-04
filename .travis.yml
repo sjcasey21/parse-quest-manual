@@ -21,8 +21,8 @@ install:
 # Command to run tests, e.g. python setup.py test
 script:
   - tox
-  - coverage run --source parse_quest_manual
-  - coverage report -m 
+  - coverage run --source parse_quest_manual -m py.test
+  - coverage report -m
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
