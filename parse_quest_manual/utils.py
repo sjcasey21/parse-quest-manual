@@ -23,7 +23,7 @@ def parse_traits(traits):
     if traits in [NULL_VALUE, '']:
         return []
 
-    trait_list = re.split(',|\.', traits)
+    trait_list = re.split(r',|\.', traits)
     return [trait.strip().lower() for trait in trait_list if len(trait)]
 
 
