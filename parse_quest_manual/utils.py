@@ -48,8 +48,7 @@ def map_value(key: str, value: str) -> Union[int, str]:
         'duration': lambda: str_to_int(value),
         'addiction save dc': lambda: str_to_int(value),
         'hp': lambda: dice_to_list(value),
-        'rad': lambda: str_to_int(value),
-        'component in': lambda: parse_traits(value)
+        'rad': lambda: str_to_int(value)
     }
 
     return switcher.get(key, value.lower)()
