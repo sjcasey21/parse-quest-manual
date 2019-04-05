@@ -125,3 +125,12 @@ def test_parse_row() -> None:
         'hp': ['+1d4'],
         'rad': 1
     }
+
+    test_misc = {
+        'Component In': '12x Scope, ACOG scope, Piece Bayonet, Slash bayonet'
+    }
+
+    assert utils.parse_row(test_misc) == {
+        'component in':
+        ['12x scope', 'acog scope', 'piece bayonet', 'slash bayonet']
+    }
