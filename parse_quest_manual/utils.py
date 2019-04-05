@@ -30,46 +30,26 @@ def parse_traits(traits):
 def map_value(key: str, value: str) -> Union[int, str]:
     key = key.lower()
     switcher = {
-        'dt':
-        lambda: str_to_int(value),
-        'value':
-        lambda: str_to_int(value),
-        'weight':
-        lambda: str_to_int(value),
-        'acc':
-        lambda: str_to_int(value),
-        'def':
-        lambda: str_to_int(value),
-        'mag':
-        lambda: str_to_int(value),
-        'small mag':
-        lambda: str_to_int(value),
-        'medium mag':
-        lambda: str_to_int(value),
-        'large mag':
-        lambda: str_to_int(value),
-        'rad':
-        lambda: str_to_int(value),
-        'str':
-        lambda: str_to_int(value),
-        'traits':
-        lambda: parse_traits(value),
-        'dmg':
-        lambda: dice_to_list(value),
-        'effect':
-        lambda: parse_traits(value),
-        'value modifier':
-        lambda: str_to_int(value),
-        'duration':
-        lambda: str_to_int(value),
-        'addiction save dc':
-        lambda: str_to_int(value),
-        'hp':
-        lambda: dice_to_list(value),
-        'rad':
-        lambda: str_to_int(value),
-        'component in':
-        lambda: [component.strip().lower() for component in value.split(',')]
+        'dt': lambda: str_to_int(value),
+        'value': lambda: str_to_int(value),
+        'weight': lambda: str_to_int(value),
+        'acc': lambda: str_to_int(value),
+        'def': lambda: str_to_int(value),
+        'mag': lambda: str_to_int(value),
+        'small mag': lambda: str_to_int(value),
+        'medium mag': lambda: str_to_int(value),
+        'large mag': lambda: str_to_int(value),
+        'rad': lambda: str_to_int(value),
+        'str': lambda: str_to_int(value),
+        'traits': lambda: parse_traits(value),
+        'dmg': lambda: dice_to_list(value),
+        'effect': lambda: parse_traits(value),
+        'value modifier': lambda: str_to_int(value),
+        'duration': lambda: str_to_int(value),
+        'addiction save dc': lambda: str_to_int(value),
+        'hp': lambda: dice_to_list(value),
+        'rad': lambda: str_to_int(value),
+        'component in': lambda: parse_traits(value)
     }
 
     return switcher.get(key, value.lower)()
