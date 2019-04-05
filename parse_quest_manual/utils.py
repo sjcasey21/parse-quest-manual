@@ -1,4 +1,5 @@
 import re
+from parse_quest_manual import _constants_items as c
 from typing import Union, Dict
 
 NULL_VALUE = '——'
@@ -30,26 +31,26 @@ def parse_traits(traits):
 def map_value(key: str, value: str) -> Union[int, str]:
     key = key.lower()
     switcher = {
-        'dt': lambda: str_to_int(value),
-        'value': lambda: str_to_int(value),
-        'weight': lambda: str_to_int(value),
-        'acc': lambda: str_to_int(value),
-        'def': lambda: str_to_int(value),
-        'mag': lambda: str_to_int(value),
-        'small mag': lambda: str_to_int(value),
-        'medium mag': lambda: str_to_int(value),
-        'large mag': lambda: str_to_int(value),
-        'rad': lambda: str_to_int(value),
-        'str': lambda: str_to_int(value),
-        'traits': lambda: parse_traits(value),
-        'dmg': lambda: dice_to_list(value),
-        'effect': lambda: parse_traits(value),
-        'value modifier': lambda: str_to_int(value),
-        'duration': lambda: str_to_int(value),
-        'addiction save dc': lambda: str_to_int(value),
-        'hp': lambda: dice_to_list(value),
-        'rad': lambda: str_to_int(value),
-        'component in': lambda: parse_traits(value)
+        c.DT: lambda: str_to_int(value),
+        c.VALUE: lambda: str_to_int(value),
+        c.WEIGHT: lambda: str_to_int(value),
+        c.ACCURACY: lambda: str_to_int(value),
+        c.DEFENSE: lambda: str_to_int(value),
+        c.MAGAZINE: lambda: str_to_int(value),
+        c.SMAG: lambda: str_to_int(value),
+        c.MMAG: lambda: str_to_int(value),
+        c.LMAG: lambda: str_to_int(value),
+        c.RADIATION: lambda: str_to_int(value),
+        c.STRENGTH: lambda: str_to_int(value),
+        c.TRAITS: lambda: parse_traits(value),
+        c.DAMAGE: lambda: dice_to_list(value),
+        c.EFFECT: lambda: parse_traits(value),
+        c.VALUEMOD: lambda: str_to_int(value),
+        c.DURATION: lambda: str_to_int(value),
+        c.ADDICTIONSAVE: lambda: str_to_int(value),
+        c.HP: lambda: dice_to_list(value),
+        c.RADIATION: lambda: str_to_int(value),
+        c.COMPONENTIN: lambda: parse_traits(value)
     }
 
     return switcher.get(key, value.lower)()
