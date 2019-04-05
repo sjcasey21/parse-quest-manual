@@ -29,29 +29,29 @@ def parse_traits(traits):
 
 def map_value(key: str, value: str) -> Union[int, str]:
     key = key.lower()
-    switcher = {
-        DT: lambda: str_to_int(value),
-        VALUE: lambda: str_to_int(value),
-        WEIGHT: lambda: str_to_int(value),
-        ACCURACY: lambda: str_to_int(value),
-        DEFENSE: lambda: str_to_int(value),
-        MAGAZINE: lambda: str_to_int(value),
-        SMAG: lambda: str_to_int(value),
-        MMAG: lambda: str_to_int(value),
-        LMAG: lambda: str_to_int(value),
-        RADIATION: lambda: str_to_int(value),
-        STRENGTH: lambda: str_to_int(value),
-        TRAITS: lambda: parse_traits(value),
-        DAMAGE: lambda: dice_to_list(value),
-        EFFECT: lambda: parse_traits(value),
-        VALUEMOD: lambda: str_to_int(value),
-        DURATION: lambda: str_to_int(value),
-        ADDICTIONSAVE: lambda: str_to_int(value),
-        HP: lambda: dice_to_list(value),
-        COMPONENTIN: lambda: parse_traits(value)
-    }
-
-    return switcher.get(key, value.lower)()
+    if key in [
+            DT,
+            VALUE,
+            WEIGHT,
+            ACCURACY,
+            DEFENSE,
+            MAGAZINE,
+            SMAG,
+            MMAG,
+            LMAG,
+            RADIATION,
+            STRENGTH,
+            VALUEMOD,
+            DURATION,
+            ADDICTIONSAVE,
+    ]:
+        return str_to_int(value)
+    elif key in [TRAITS, COMPONENTIN, EFFECT]:
+        return parse_traits(value)
+    elif key in [DAMAGE, HP]:
+        return dice_to_list(value)
+    else:
+        return value.lower()
 
 
 def parse_row(row: Dict[str, str]) -> Dict[str, Union[int, str]]:
