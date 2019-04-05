@@ -1,5 +1,5 @@
 import re
-from ._constants_items import *
+from . import _constants_items as c
 from ._constants_global import NULL_VALUE
 from typing import Union, Dict
 
@@ -30,25 +30,25 @@ def parse_traits(traits):
 def map_value(key: str, value: str) -> Union[int, str]:
     key = key.lower()
     if key in [
-            DT,
-            VALUE,
-            WEIGHT,
-            ACCURACY,
-            DEFENSE,
-            MAGAZINE,
-            SMAG,
-            MMAG,
-            LMAG,
-            RADIATION,
-            STRENGTH,
-            VALUEMOD,
-            DURATION,
-            ADDICTIONSAVE,
+            c.DT,
+            c.VALUE,
+            c.WEIGHT,
+            c.ACCURACY,
+            c.DEFENSE,
+            c.MAGAZINE,
+            c.SMAG,
+            c.MMAG,
+            c.LMAG,
+            c.RADIATION,
+            c.STRENGTH,
+            c.VALUEMOD,
+            c.DURATION,
+            c.ADDICTIONSAVE,
     ]:
         return str_to_int(value)
-    elif key in [TRAITS, COMPONENTIN, EFFECT]:
+    elif key in [c.TRAITS, c.COMPONENTIN, c.EFFECT]:
         return parse_traits(value)
-    elif key in [DAMAGE, HP]:
+    elif key in [c.DAMAGE, c.HP]:
         return dice_to_list(value)
     else:
         return value.lower()

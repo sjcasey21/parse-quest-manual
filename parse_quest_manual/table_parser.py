@@ -1,6 +1,5 @@
 import bs4
 from .utils import parse_row
-from pprint import pprint
 
 
 def parse_table(table: bs4.element.Tag):
