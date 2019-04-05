@@ -134,3 +134,5 @@ def test_parse_row() -> None:
         'component in':
         ['12x scope', 'acog scope', 'piece bayonet', 'slash bayonet']
     }
+
+    assert utils.parse_row({'Component In': '——'}) == {'component in': []}
