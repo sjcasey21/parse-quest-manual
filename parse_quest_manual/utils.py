@@ -48,7 +48,6 @@ def map_value(key: str, value: str) -> Union[int, str]:
         DURATION: lambda: str_to_int(value),
         ADDICTIONSAVE: lambda: str_to_int(value),
         HP: lambda: dice_to_list(value),
-        RADIATION: lambda: str_to_int(value),
         COMPONENTIN: lambda: parse_traits(value)
     }
 
