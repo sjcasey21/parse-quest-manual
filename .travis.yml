@@ -10,6 +10,7 @@ branches:
   only:
   - master
   - develop
+  - /v\d+\.\d+[a-z]/
 install:
 - pip install -r requirements_dev.txt
 - pip install -U tox-travis
