@@ -13,7 +13,10 @@ def parse_table(table: bs4.element.Tag):
 
 
 def chunk_categories(start_node):
-    nodes = [start_node, *start_node.find_all_next('h3')]
+    if start_node.name == 'h3':
+        nodes = [start_node, *start_node.find_all_next('h3')]
+    else:
+        nodes = start_node.find_all_next('h3')
     nodes = [{
         'category':
         node.text.strip().lower(),
