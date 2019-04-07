@@ -1,26 +1,26 @@
-from parse_quest_manual import utils
+from parse_quest_manual import dict_utils
 
-# from utils import parse_row, str_to_int, map_key, map_value
+# from dict_utils import parse_row, str_to_int, map_key, map_value
 
 
 def test_map_key():
-    assert utils.map_key('someKey') == 'somekey'
+    assert dict_utils.map_key('someKey') == 'somekey'
 
 
 def test_str_to_int():
-    assert utils.str_to_int('20') == 20
-    assert utils.str_to_int('a20a') == 20
-    assert utils.str_to_int('aa') == 0
-    assert utils.str_to_int('') == 0
-    assert utils.str_to_int('-20') == -20
-    assert utils.str_to_int('——') == 0
+    assert dict_utils.str_to_int('20') == 20
+    assert dict_utils.str_to_int('a20a') == 20
+    assert dict_utils.str_to_int('aa') == 0
+    assert dict_utils.str_to_int('') == 0
+    assert dict_utils.str_to_int('-20') == -20
+    assert dict_utils.str_to_int('——') == 0
 
 
 def test_dice_to_list():
-    assert utils.dice_to_list('  4 -1d20   ') == ['4', '-1d20']
-    assert utils.dice_to_list('4 +1d4') == ['4', '+1d4']
-    assert utils.dice_to_list('——') == []
-    assert utils.dice_to_list('10 DMG') == ['10']
+    assert dict_utils.dice_to_list('  4 -1d20   ') == ['4', '-1d20']
+    assert dict_utils.dice_to_list('4 +1d4') == ['4', '+1d4']
+    assert dict_utils.dice_to_list('——') == []
+    assert dict_utils.dice_to_list('10 DMG') == ['10']
 
 
 def test_parse_traits():
@@ -29,17 +29,17 @@ def test_parse_traits():
         ' rad-level when they enter the area and ',
         'it acts as rough terrain.',
     ])
-    assert utils.parse_traits(test_trait) == [
+    assert dict_utils.parse_traits(test_trait) == [
         'spread toxic ooze in 10ft',
         'aoe',
         'character take 1d4 rad-level when they enter the area and it acts as rough terrain',
     ]
-    assert utils.parse_traits('Deals slash damage, Finesse weapon') == [
+    assert dict_utils.parse_traits('Deals slash damage, Finesse weapon') == [
         'deals slash damage',
         'finesse weapon',
     ]
-    assert utils.parse_traits('——') == []
-    assert utils.parse_traits(' ') == []
+    assert dict_utils.parse_traits('——') == []
+    assert dict_utils.parse_traits(' ') == []
 
 
 def test_parse_row() -> None:
@@ -50,7 +50,7 @@ def test_parse_row() -> None:
         'Weight': '1 lbs.',
         'Traits': '+1 END, +1 CHA',
     }
-    assert utils.parse_row(test_armor) == {
+    assert dict_utils.parse_row(test_armor) == {
         'name': 'all-nighter nightwear',
         'dt': 0,
         'value': 2,
@@ -65,7 +65,7 @@ def test_parse_row() -> None:
         'DEF': '+1'
     }
 
-    assert utils.parse_row(test_melee_weapon) == {
+    assert dict_utils.parse_row(test_melee_weapon) == {
         'dmg': ['10', '+1d8'],
         'acc': -1,
         'str': 12,
@@ -77,7 +77,7 @@ def test_parse_row() -> None:
         'Ammo': 'Darts',
     }
 
-    assert utils.parse_row(test_ranged_weapon) == {
+    assert dict_utils.parse_row(test_ranged_weapon) == {
         'mag': 1,
         'ammo': 'darts',
     }
@@ -88,7 +88,7 @@ def test_parse_row() -> None:
         'DMG': '10 DMG'
     }
 
-    assert utils.parse_row(test_accessories) == {
+    assert dict_utils.parse_row(test_accessories) == {
         'area': 'full body',
         'available weapons': 'two-handed weapons',
         'dmg': ['10']
@@ -103,7 +103,7 @@ def test_parse_row() -> None:
         'Effect': 'Gain +1d4 on your attack roll'
     }
 
-    assert utils.parse_row(test_ammunition) == {
+    assert dict_utils.parse_row(test_ammunition) == {
         'small mag': 1,
         'medium mag': 4,
         'large mag': 50,
@@ -119,9 +119,20 @@ def test_parse_row() -> None:
         'RAD': '+1 RAD'
     }
 
-    assert utils.parse_row(test_medical) == {
+    assert dict_utils.parse_row(test_medical) == {
         'duration': 4,
         'addiction save dc': 4,
         'hp': ['+1d4'],
         'rad': 1
     }
+
+    test_misc = {
+        'Component In': '12x Scope, ACOG scope, Piece Bayonet, Slash bayonet'
+    }
+
+    assert dict_utils.parse_row(test_misc) == {
+        'component in':
+        ['12x scope', 'acog scope', 'piece bayonet', 'slash bayonet']
+    }
+
+    assert dict_utils.parse_row({'Component In': '——'}) == {'component in': []}
