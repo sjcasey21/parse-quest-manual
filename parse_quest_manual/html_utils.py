@@ -1,6 +1,6 @@
 import bs4
 from itertools import takewhile
-from .utils import parse_row
+from .dict_utils import parse_row
 
 
 def parse_table(table: bs4.element.Tag):

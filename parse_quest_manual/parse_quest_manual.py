@@ -5,7 +5,6 @@
 
 from bs4 import BeautifulSoup
 import bs4
-# from pprint import pprint
 import re
 # import json
 # import itertools
