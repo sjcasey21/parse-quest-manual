@@ -79,3 +79,7 @@ def test_chunk_categories():
     assert [category['category']
             for category in result] == ['armor sets', 'helmets']
     assert [len(category['content']) for category in result] == [1, 2]
+
+
+def test_parse_contents():
+    pass
