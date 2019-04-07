@@ -124,6 +124,7 @@ def test_parse_contents():
     <h2>something</h2>
     <p>some stuff before the items</p>
     <h3>Armor Sets</h3>
+    <h5>Special armors</h5>
     {}
     <h3>Helmets</h3>
     <h4>Hats</h4>
@@ -140,6 +141,8 @@ def test_parse_contents():
             'category':
             'armor sets',
             'content': [{
+                'subtype':
+                'special armors',
                 'items': [{
                     'name': 'advanced radiation suit',
                     'dt': 2,

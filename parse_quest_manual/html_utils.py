@@ -35,11 +35,22 @@ def parse_contents(categories):
     def tag_to_str(tag):
         return str.lower(str.strip(bs4.element.Tag.getText(tag)))
 
+    def limited_tag_search(start_node, search_tag, limit):
+        return next(
+            (tag
+             for tag in start_node.find_previous_siblings(True, limit=limit)
+             if tag.name == search_tag), None)
+
     return [{
         **category, 'content': [{
             **conditional_dict(
                 'type',
-                tag.find_previous_sibling('h4'),
+                limited_tag_search(tag, 'h4', 2),
+                tag_to_str,
+            ),
+            **conditional_dict(
+                'subtype',
+                limited_tag_search(tag, 'h5', 1),
                 tag_to_str,
             ),
             'items':
