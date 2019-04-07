@@ -57,3 +57,9 @@ def parse_contents(categories):
             parse_table(tag),
         } for tag in category['content'] if tag.name == 'table']
     } for category in categories]
+
+
+def parse_categories(start_node):
+    categories = chunk_categories(start_node)
+    categories = parse_contents(categories)
+    return categories
