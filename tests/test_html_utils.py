@@ -153,6 +153,8 @@ def test_parse_contents():
             'category':
             'helmets',
             'content': [{
+                'type':
+                'hats',
                 'items': [{
                     'name': 'baseball cap',
                     'dt': 0,

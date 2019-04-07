@@ -29,8 +29,20 @@ def chunk_categories(start_node):
 
 
 def parse_contents(categories):
+    def conditional_dict(key, value, func):
+        return {key: func(value)} if value else {}
+
+    def tag_to_str(tag):
+        return str.lower(str.strip(bs4.element.Tag.getText(tag)))
+
     return [{
         **category, 'content': [{
-            'items': parse_table(tag)
+            **conditional_dict(
+                'type',
+                tag.find_previous_sibling('h4'),
+                tag_to_str,
+            ),
+            'items':
+            parse_table(tag),
         } for tag in category['content'] if tag.name == 'table']
     } for category in categories]
