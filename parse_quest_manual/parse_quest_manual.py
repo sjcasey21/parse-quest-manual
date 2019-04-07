@@ -20,14 +20,16 @@ if __name__ == '__main__':  # pragma: no cover
     with open('quest-manual.html', 'r') as f:
         soup: bs4.BeautifulSoup = BeautifulSoup(f.read(), 'html.parser')
 
-    ch15 = soup.find_all(text=re.compile('Chapter 15'))[1].parent
+    # ch15 = soup.find_all(text=re.compile('Chapter 15'))[1].parent
+    ch15 = soup.find(string=re.compile('Chapter 15')).find_parent('h2')
+    print(ch15)
 
-    item_categories = [i for i in ch15.findAllNext('h3')]
+    # item_categories = [i for i in ch15.findAllNext('h3')]
     # parse_item_category(item_categories[0], item_categories[1])
     # items = parse_categories(item_categories)
     # from pprint import pprint
 
-    print(type(item_categories[0].findNext('table')))
+    # print(type(item_categories[0].findNext('table')))
 
     # print(json.dumps(items, indent=2))
     # with open('items.json', 'w') as f:
