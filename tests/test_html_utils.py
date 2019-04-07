@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-from parse_quest_manual import table_parser
+import bs4
+from parse_quest_manual import html_utils
 from pprint import pprint
 
 
@@ -47,7 +48,7 @@ def test_parse_table():
     soup = BeautifulSoup(source.strip(), 'html.parser')
     test_table = soup.find('table')
 
-    assert table_parser.parse_table(test_table) == [{
+    assert html_utils.parse_table(test_table) == [{
         'name':
         'advanced radiation suit',
         'dt':
@@ -58,3 +59,23 @@ def test_parse_table():
         7,
         'traits': ['+4 rad res', 'bodysuit']
     }]
+
+
+def test_chunk_categories():
+    source = '''
+    <h2>something</h2>
+    <p>some stuff before the items</p>
+    <h3>Armor Sets</h3>
+    <table></table>
+    <h3>Helmets</h3>
+    <p>some descriptions</p>
+    <h4>some sub types</h4>
+    <h1>a different section</h1>
+    '''
+    soup = BeautifulSoup(source.strip(), 'html.parser')
+    test_document = soup.find('h3')
+
+    result = html_utils.chunk_categories(test_document)
+    assert [category['category']
+            for category in result] == ['armor sets', 'helmets']
+    assert [len(category['content']) for category in result] == [1, 2]
