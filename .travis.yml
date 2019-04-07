@@ -1,44 +1,28 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
 python:
-  - 3.7
-  # - 3.5
-  # - 3.4
-  # - 2.7
-
+- 3.7
 matrix:
   include:
-    - python: 3.7
-      dist: xenial
-      sudo: true
-
+  - python: 3.7
+    dist: xenial
+    sudo: true
 branches:
   only:
-    - master
-    - develop
-
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+  - master
+  - develop
 install:
-  - pip install -r requirements_dev.txt
-  - pip install -U tox-travis
-
-# Command to run tests, e.g. python setup.py test
+- pip install -r requirements_dev.txt
+- pip install -U tox-travis
 script:
-  - tox
-  - coverage run --source parse_quest_manual -m py.test
-  - coverage report -m --fail-under=90
-
-# Assuming you have installed the travis-ci CLI tool, after you
-# create the Github repo and add it to Travis, run the
-# following command to finish PyPI deployment setup:
-# $ travis encrypt --add deploy.password
+- tox
+- coverage run --source parse_quest_manual -m py.test
+- coverage report -m --fail-under=90
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
   user: sjcasey
   password:
-    secure: PLEASE_REPLACE_ME
+    secure: y0o+Jyn5C791l+B2iTJM6BxueAOziYxPDNT+OrMKHnbJuVmhEiEW8TLeipSOA56LMZs7zVu19FoiJhjOm+VjcIo+XaUPw4jLoIIaRpTPAYHLgbBP1YtmyH5n2zPDM/vgTTHb4taymOmf3nz7ccBv4KCTMgDGyfT/jHIItYLQUreWjRgrpePJ+d3i2SfDkOAlz/caj7f3a2C055dx7ZCPKQk7iT8oVa6UaZVQeKKVkmgPwJWyvc5LPhL2WFBwam0oItfzoiO+S/vdsRtXHEhr7mSZdHdfHo09iq5uMkklGNwstXklq3FFFvqMmjSIlsWMWs17xErs1Ahqjras/pJIuGfTSfnn5vUFEZ479tK3N9YHbQ6Q/GWkDUVv2eY+LrP/pr3wIAyr2OgY4QOmh9deSYKRdItPBKSvJKLReWimsvoXkwHGMmhbVEHCkto/vCGKLbuw5FM4H6+5xNh41WpfWRFqonM1K8m9mT/4NN/o+lNhp8BoHON58ogTV6MHzp1I0jhd65FOFOhwd1jQQC1kC8KJuyFqcST04jQwZGQMCMHbvq1uFzGZHIssjanx5xrpPozPvctjNybmBiWH7yAFIDeWiA3KavPlj0umvsTmDhNtFUdFefrIX7CHtMLVuL1mt4VtIGcFwx6hfmtWz6+smyfn9zfjxS91bVByqO/Lghk=
   on:
     tags: true
     repo: sjcasey21/parse_quest_manual
