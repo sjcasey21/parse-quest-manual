@@ -28,6 +28,11 @@ Features
 
 * Parses Item Lists
 
+TODO
+--------
+
+* Parse Traits
+
 Credits
 -------
 
