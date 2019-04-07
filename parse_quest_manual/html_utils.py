@@ -26,3 +26,11 @@ def chunk_categories(start_node):
     } for node in nodes]
 
     return nodes
+
+
+def parse_contents(categories):
+    return [{
+        **category, 'content': [{
+            'items': parse_table(tag)
+        } for tag in category['content'] if tag.name == 'table']
+    } for category in categories]
