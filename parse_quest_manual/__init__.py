@@ -5,4 +5,4 @@ __author__ = """Steve Casey"""
 __email__ = 'stevencasey21@gmail.com'
 __version__ = '0.1.0'
 
-from parse_quest_manual import parse_manual
+from .parse_quest_manual import *

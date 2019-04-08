@@ -8,10 +8,13 @@ import bs4
 from bs4 import BeautifulSoup
 from .html_utils import parse_categories
 
+__all__ = ['parse_manual']
+
 
 def parse_manual(source):
     soup = BeautifulSoup(source, 'html.parser')
-    start_node = soup.find(string=re.compile('Chapter 15')).find_parent('h2')
+    start_node = soup.find_all(
+        string=re.compile('Chapter 15'))[-1].find_parent('h2')
     return parse_categories(start_node)
 
 
