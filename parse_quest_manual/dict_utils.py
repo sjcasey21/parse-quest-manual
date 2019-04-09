@@ -9,7 +9,7 @@ def normalize_string(string):
 
 
 def map_key(key: str) -> str:
-    return key.lower()
+    return normalize_string(key)
 
 
 def str_to_int(value: str) -> int:
@@ -28,11 +28,11 @@ def parse_traits(traits):
         return []
 
     trait_list = re.split(r',|\.', traits)
-    return [trait.strip().lower() for trait in trait_list if len(trait)]
+    return [normalize_string(trait) for trait in trait_list if len(trait)]
 
 
 def map_value(key: str, value: str) -> Union[int, str]:
-    key = key.lower()
+    key = normalize_string(key)
     if key in [
             c.DT,
             c.VALUE,
@@ -55,7 +55,7 @@ def map_value(key: str, value: str) -> Union[int, str]:
     elif key in [c.DAMAGE, c.HP]:
         return dice_to_list(value)
     else:
-        return value.lower()
+        return normalize_string(value)
 
 
 def parse_row(row: Dict[str, str]) -> Dict[str, Union[int, str]]:

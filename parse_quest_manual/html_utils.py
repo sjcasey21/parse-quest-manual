@@ -1,13 +1,16 @@
 import bs4
 import re
 from itertools import takewhile
-from .dict_utils import parse_row
+from .dict_utils import parse_row, normalize_string
 
 
 def parse_table(table: bs4.element.Tag):
     head, *rows = table.find_all('tr')
-    head = [i.text.strip() for i in head.find_all(re.compile(r'td|th'))]
-    rows = [[i.text.strip() for i in row.find_all('td')] for row in rows]
+    head = [
+        normalize_string(i.text) for i in head.find_all(re.compile(r'td|th'))
+    ]
+    rows = [[normalize_string(i.text) for i in row.find_all('td')]
+            for row in rows]
 
     data = [parse_row(dict(zip(head, row))) for row in rows]
     return data
@@ -20,7 +23,7 @@ def chunk_categories(start_node):
         nodes = start_node.find_all_next('h3')
     nodes = [{
         'category':
-        node.text.strip().lower(),
+        normalize_string(node.text),
         'content': [
             tag for tag in takewhile(
                 lambda x: x.name > 'h3',
@@ -37,7 +40,7 @@ def parse_contents(categories):
         return {key: func(value)} if value else {}
 
     def tag_to_str(tag):
-        return str.lower(str.strip(bs4.element.Tag.getText(tag)))
+        return normalize_string(bs4.element.Tag.getText(tag))
 
     def limited_tag_search(start_node, search_tag, limit):
         return next(
