@@ -3,8 +3,6 @@ import re
 from itertools import takewhile
 from .dict_utils import parse_row
 
-from pprint import pprint
-
 
 def parse_table(table: bs4.element.Tag):
     head, *rows = table.find_all('tr')

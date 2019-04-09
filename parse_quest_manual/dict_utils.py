@@ -4,6 +4,10 @@ from ._constants_global import NULL_VALUE
 from typing import Union, Dict
 
 
+def normalize_string(string):
+    return string.strip().lower().replace('\n', '')
+
+
 def map_key(key: str) -> str:
     return key.lower()
 
