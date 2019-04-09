@@ -1,11 +1,14 @@
 import bs4
+import re
 from itertools import takewhile
 from .dict_utils import parse_row
+
+from pprint import pprint
 
 
 def parse_table(table: bs4.element.Tag):
     head, *rows = table.find_all('tr')
-    head = [i.text.strip() for i in head.find_all('td')]
+    head = [i.text.strip() for i in head.find_all(re.compile(r'td|th'))]
     rows = [[i.text.strip() for i in row.find_all('td')] for row in rows]
 
     data = [parse_row(dict(zip(head, row))) for row in rows]
