@@ -3,6 +3,12 @@ from parse_quest_manual import dict_utils
 # from dict_utils import parse_row, str_to_int, map_key, map_value
 
 
+def test_normalize_string():
+    assert dict_utils.normalize_string('  asdf   ') == 'asdf'
+    assert dict_utils.normalize_string(' AsDf   ') == 'asdf'
+    assert dict_utils.normalize_string('asdf\n asdf') == 'asdf asdf'
+
+
 def test_map_key():
     assert dict_utils.map_key('someKey') == 'somekey'
 

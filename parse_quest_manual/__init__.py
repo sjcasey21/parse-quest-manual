@@ -5,4 +5,6 @@ __author__ = """Steve Casey"""
 __email__ = 'stevencasey21@gmail.com'
 __version__ = '0.1.0'
 
+# flake8: noqa
+
 from .parse_quest_manual import *
