@@ -26,7 +26,12 @@ Package for parsing Max's Quest Combat Manual into json
 Features
 --------
 
-* TODO
+* Parses Item Lists
+
+TODO
+--------
+
+* Parse Traits
 
 Credits
 -------

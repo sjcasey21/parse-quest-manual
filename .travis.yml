@@ -6,10 +6,6 @@ matrix:
   - python: 3.7
     dist: xenial
     sudo: true
-branches:
-  only:
-  - master
-  - develop
 install:
 - pip install -r requirements_dev.txt
 - pip install -U tox-travis
@@ -21,9 +17,9 @@ deploy:
   provider: pypi
   distributions: sdist bdist_wheel
   user: sjcasey
-  password:
-    secure: y0o+Jyn5C791l+B2iTJM6BxueAOziYxPDNT+OrMKHnbJuVmhEiEW8TLeipSOA56LMZs7zVu19FoiJhjOm+VjcIo+XaUPw4jLoIIaRpTPAYHLgbBP1YtmyH5n2zPDM/vgTTHb4taymOmf3nz7ccBv4KCTMgDGyfT/jHIItYLQUreWjRgrpePJ+d3i2SfDkOAlz/caj7f3a2C055dx7ZCPKQk7iT8oVa6UaZVQeKKVkmgPwJWyvc5LPhL2WFBwam0oItfzoiO+S/vdsRtXHEhr7mSZdHdfHo09iq5uMkklGNwstXklq3FFFvqMmjSIlsWMWs17xErs1Ahqjras/pJIuGfTSfnn5vUFEZ479tK3N9YHbQ6Q/GWkDUVv2eY+LrP/pr3wIAyr2OgY4QOmh9deSYKRdItPBKSvJKLReWimsvoXkwHGMmhbVEHCkto/vCGKLbuw5FM4H6+5xNh41WpfWRFqonM1K8m9mT/4NN/o+lNhp8BoHON58ogTV6MHzp1I0jhd65FOFOhwd1jQQC1kC8KJuyFqcST04jQwZGQMCMHbvq1uFzGZHIssjanx5xrpPozPvctjNybmBiWH7yAFIDeWiA3KavPlj0umvsTmDhNtFUdFefrIX7CHtMLVuL1mt4VtIGcFwx6hfmtWz6+smyfn9zfjxS91bVByqO/Lghk=
   on:
-    tags: true
+    branch: master
     repo: sjcasey21/parse_quest_manual
     python: 3.7
+  password:
+    secure: thyIyvdUJwpNekwXenmfSq8DRo92SO2djFokRNr4KwgFcaLHMecUy5+TelS896YkpL7+i3G9B1fqoljJA7qAS9VtRxYj5B07wXSo1d4BPaaP6WGhTCz7tIK94M+EAmjKv3JVl5TkU/TKDwKNyin4f/aYSNTEjdS9wOw9UUKu//8pUy5BlNJXv44zPklYbCiFUeodgBYRXFarNxUHHIFA57evBSqIcZZJXs+7kaczWwQHiboDXmBdwVQd7yC88vyWDJs++aS+/hCeZW0rPXOuHWF0W7Bu79sCoLdx4NF4CJg8fK7cWlLJ49Kf5U3pAIOupzdXeUA5kmROH7MZxcaI/MxIZCb+nGB8YxwHEPu3tqC5JTt3akhWw4JFZdolA9ssH2tmGPhw15uzU4gsRCVYMzif+BjouEa+SjN20FjueqP4u0IQhRIoNVoQPOyKIFedYPGPJ+C2RN7jcu9OzRreZXl0UbhaqJyCNOlHB2wIQ91RB5StxN4Oe9v3foGYjgxxGWCLgje5RGwsUKXWf+vmoUUR2K4TDq2zOv5nsw33KfbnxYuyf6+avXWF+0t2kqmg2UJwA7Y1o+ndaGuVPlWLG6wxtMwcLY3dHCctLIcOQR7P4ohBPkqmsq46R6SDkjYnRVEfPDhJkxFloBxNLUafc3OqUb7hqJ8lZ91BVG/0Cqw=
